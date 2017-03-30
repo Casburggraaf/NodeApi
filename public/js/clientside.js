@@ -19,15 +19,17 @@ if (input && input.addEventListener) {
     var output = document.querySelector("#appel");
     JSONHttpRequest('/api?firstname='+input.value, function(data) {
       console.log(data);
-      if(data[10].status == 'ok'){
-        data.pop();
+      if(data[0].status == 'ok'){
+        data.shift();
         let span = "";
-        console.log(data[0]);
+        console.log(data);
         for(var i = 0; i < data.length; i++){
           span += "<span>" + data[i].firstname + "</span><br>"
         }
         console.log(span);
         output.innerHTML = span;
+      }else {
+				output.innerHTML = "";
       }
     }, function(err) {
       //erorrrrr

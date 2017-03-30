@@ -29,16 +29,23 @@ app.get("/", function(req, res){
 app.get("/api", function(req, res){
   req.getConnection( function(err, connection){
     if(err) return next(err);
-    connection.query( 'SELECT gebruikers.firstname FROM gebruikers WHERE firstname LIKE  ? "%"' , [req.query.firstname], function(err, result) {
-      if(result.length>0) {
-        result = result.splice(0,10);
-        result[10] = {status : 'ok'};
-        console.log(result);
-        res.json(result);
-      } else {
-        res.json({status:'error'});
-      }
-    });
+    if(req.query.firstname != ""){
+      connection.query( 'SELECT gebruikers.firstname FROM gebruikers WHERE firstname LIKE  ? "%"' , [req.query.firstname], function(err, result) {
+        //console.log(result);
+        if(result.length>0) {
+          result = result.splice(0,10);
+          result.unshift({status : 'ok'});
+        //  console.log(result);
+          res.json(result);
+        }else {
+          result[0] = {status: "error"};
+          res.json(result);
+        }
+      });
+    }else {
+      var result = [{status: "error"}];
+      res.json(result);
+    }
   });
 });
 
