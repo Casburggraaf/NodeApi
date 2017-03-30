@@ -26,7 +26,6 @@ if (input && input.addEventListener) {
         for(var i = 0; i < data.length; i++){
           span += "<span>" + data[i].firstname + "</span><br>"
         }
-        console.log(span);
         output.innerHTML = span;
       }else {
 				output.innerHTML = "";
