@@ -23,10 +23,13 @@ if (input && input.addEventListener) {
         data.shift();
         let span = "";
         console.log(data);
+				while (output.firstChild) output.removeChild(output.firstChild);
         for(var i = 0; i < data.length; i++){
-          span += "<span>" + data[i].firstname + "</span><br>"
+					 let span = document.createElement("div");
+					 let naam = document.createTextNode(data[i].firstname);
+					 span.appendChild(naam);
+					 output.appendChild(span);
         }
-        output.innerHTML = span;
       }else {
 				output.innerHTML = "";
       }
